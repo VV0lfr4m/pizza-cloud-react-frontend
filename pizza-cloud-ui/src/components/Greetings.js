@@ -1,10 +1,10 @@
 import React from "react";
 
-function Greetings() {
+function Greetings(props) {
     return (
         <div>
-            <h1>Welcome to...</h1>
-            <h2>Pizza Cloud</h2>
+            <h2>{props.message}</h2>
+            <h1>{props.name}</h1>
             <img src="#" width="400" height="300" alt="LOGO img"/>
         </div>
     )

@@ -1,13 +1,16 @@
 import React from "react";
+import classes from '../css/Navigation.module.css';
+import {NavLink} from "react-router-dom";
 
-function Navigation() {
+function Navigation(props) {
     return (
         <div>
             <ul>
-                <li><a href='#'>Create design</a></li>
-                <li><a href='#'>Go to the cart</a></li>
-                <li><a href='#'>Go home</a></li>
-                <li><a href='#'>Login</a></li>
+                <li><NavLink to='/home'>{props.home}</NavLink></li>
+                <li><NavLink to='/design'>{props.design}</NavLink></li>
+                <li><NavLink to='/recent'>recent</NavLink></li>
+                <li><NavLink to='/cart'>{props.cart}</NavLink></li>
+                <li><NavLink to='/login'>{props.login}</NavLink></li>
             </ul>
         </div>
     )

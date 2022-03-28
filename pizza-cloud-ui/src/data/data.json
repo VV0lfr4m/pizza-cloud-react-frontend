@@ -1,0 +1,11 @@
+[
+  {
+      "greetings_text": "Welcome to...",
+      "greetings_name": "Pizza Cloud",
+      "navigation_design": "Create design",
+      "navigation_cart": "Go to the cart",
+      "navigation_home": "Go home",
+      "navigation_login": "Login",
+      "navigation_logout": "Logout"
+  }
+]
