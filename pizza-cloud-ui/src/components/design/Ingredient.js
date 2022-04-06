@@ -30,10 +30,14 @@ function Ingredient(props) {
     };
 
     return (
-        <Card className="grid">
-            <h3>{"Designate your " + props.ingredientName + ":"}</h3>
+        <Card className={props.ingredientId + ' item'}>
+            {/*<h3>{"Designate your " + props.ingredientId + ":"}</h3>
             <input onChange={handleIngredientChange} name="ingredient" type="checkbox"/>
-            <span>{props.ingredientName}</span>
+            <span>{props.ingredientName}</span>*/}
+            <label className="label">{props.ingredientName}
+                <input onChange={handleIngredientChange} name="ingredient" type="checkbox"/>
+                    <span className="checkmark"></span>
+            </label>
             <br/>
         </Card>
     )

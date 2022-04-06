@@ -1,70 +1,35 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Ingredient from "./Ingredient";
 import IngredientGroup from "./IngredientGroup";
+import '../../css/design/DesignForm.css';
 
 function DesignForm(props) {
-    //const [changebale, setChangebale] = useState(props.changebale);
-    const [enteredTitle, setEnteredTitle] = useState('');
+    //const [enteredTitle, setEnteredTitle] = useState('');
+    const inputTitle = useRef();
     const [enteredIngredients, setEnteredIngredients] = useState([]);
-
-    /*const [userInput, setUserInput] = useState({
-        title: '',
-        someOtherInput: '',
-        ingredients: []
-    })*/
-
 
     const submitHandler = (event) => {
         event.preventDefault();
         setEnteredIngredients(savedIngredients);
-        setEnteredTitle(enteredTitle);
-        /*setUserInput(state => {
-            const newState = {
-                ...state,
-                ingredients: savedIngredients
-            };
-            return newState;
-        }
-        );*/
-        /*setUserInput(state => {
-            console.log("userInput");
-            console.log(state);
-            props.onSaveDesign(state);
-            return state;
-        })*/
+        //setEnteredTitle(enteredTitle);
 
-        console.log(enteredTitle)
+        //console.log(enteredTitle)
+        console.log(inputTitle.current.value)
         console.log(enteredIngredients)
-
-        const newDesign = {
-            id: (Math.random() * 10),
-            name: enteredTitle,
-            ingredients: enteredIngredients
-        };
-        props.onSaveDesign(newDesign);
-        alert("submitted");
-
-    }
-
-    /*const clearDesignHandler = (event) => {
-        event.preventDefault();
-        setUserInput((prevState => {
-            return {
-                ...prevState,
-                title: '',
-                ingredients: []
-            }
-        }));
-        console.log(userInput);
-        alert("cleared");
-    }*/
-
-    //const [enteredName, setEnteredName] = useState('');
-
-    const titleChangeHandler = (event) => {
-        setEnteredTitle(event.target.value);
-        console.log(enteredTitle);
-    }
+        if (enteredIngredients !== [] && inputTitle.current.value.trim().length < 3) {
+            const newDesign = {
+                id: (Math.random() * 10),
+                name: inputTitle.current.value,//enteredTitle,
+                ingredients: enteredIngredients
+            };
+            props.onSaveDesign(newDesign);
+            inputTitle.current.value = '';
+            alert("submitted");
+        }
+        else {
+            alert("error");
+        }
+    };
 
     const savedIngredients = [];
     const saveIngredientsHandler = (ingredient) => {
@@ -81,39 +46,35 @@ function DesignForm(props) {
         console.log(enteredIngredients)
     };
 
-    const testH = (ingredients) => {
-        console.log("Ingredients")
-
-        console.log(ingredients)
-    };
-
     return (
-        <div>
+        <div className='designForm'>
             <form method="POST" onSubmit={submitHandler}>
-                {props.data.map((item, index) =>
-                    <IngredientGroup
-                        key={index}
-                        className={item.name}
-                        ingredients={item.ingredients}
-                        onSaveIngredients={saveIngredientsHandler}
-                        onDeleteIngredients={deleteIngredientsHandler}
-                        //test = {testH}
-                    />)
-                }
-                <div>
+                <div className='groups'>
+                    {props.data.map((item, index) =>
+                        <IngredientGroup
+                            key={index}
+                            className={item.id}
+                            ingredients={item.ingredients}
+                            onSaveIngredients={saveIngredientsHandler}
+                            onDeleteIngredients={deleteIngredientsHandler}
+                        />)
+                    }
+                </div>
+                <div className='inputTitle'>
                     <h3>Name your pizza creation:</h3>
-                    <input value={enteredTitle} onChange={titleChangeHandler} type="text"/>
-                    <span className="validationError">Name Error</span>
-                    <br/>
+                    <input ref={inputTitle} type="text"/>
+                </div>
+                <div className='designButtons'>
                     <button type='submit'>Submit your pizza</button>
                     <button type='button'>Create another one</button>
                 </div>
 
-                {/*<input type="hidden" sec:authorize="isFullyAuthenticated()" th:if="${_csrf}"
-                       th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>*/}
-            </form>
-        </div>
-    )
+    {/*<input type="hidden" sec:authorize="isFullyAuthenticated()" th:if="${_csrf}"
+                       th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>*/
+    }
+</form>
+</div>
+)
 }
 
 export default DesignForm;

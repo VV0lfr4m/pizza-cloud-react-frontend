@@ -1,5 +1,6 @@
 import React from "react";
 import DesignItem from "./DesignItem";
+import '../../css/design/UserDesigns.css';
 
 function UserDesigns(props) {
 
@@ -14,10 +15,14 @@ function UserDesigns(props) {
     }
 
     return (
-        <div>
-            <h2>Latest designs</h2>
-            {showDesignList()}
-        </div>
+        <React.Fragment>
+            <div>
+                <h2>Latest designs</h2>
+                <div className='designs'>
+                    {showDesignList()}
+                </div>
+            </div>
+        </React.Fragment>
     );
 }
 

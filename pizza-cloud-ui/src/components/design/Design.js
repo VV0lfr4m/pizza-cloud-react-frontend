@@ -4,11 +4,12 @@ import Ingredient from "./Ingredient";
 import IngredientGroup from "./IngredientGroup";
 import DesignHeader from "./DesignHeader";
 import DesignForm from "./DesignForm";
+import '../../css/design/Design.css';
 
 function Design(props) {
     const data = [
         {
-            name: "dough",
+            id: "dough",
             ingredients: [
                 {
                     id: "DOUG",
@@ -21,7 +22,7 @@ function Design(props) {
             ]
         },
         {
-            name: "protein",
+            id: "protein",
             ingredients: [
                 {
                     id: "PRTN",
@@ -32,10 +33,9 @@ function Design(props) {
     ];
 
     return (
-        <div>
-            <DesignHeader data = {data}/>
+        <div className='design'>
+            <DesignHeader className='header' data = {data}/>
             <DesignForm data = {data} changebale = 'Change text' onSaveDesign={props.onSaveDesign}/>
-            <Logout/>
         </div>
     )
 }
