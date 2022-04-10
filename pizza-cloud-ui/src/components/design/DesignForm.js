@@ -10,23 +10,22 @@ function DesignForm(props) {
 
     const submitHandler = (event) => {
         event.preventDefault();
-        setEnteredIngredients(savedIngredients);
+        //setEnteredIngredients(savedIngredients);
         //setEnteredTitle(enteredTitle);
 
         //console.log(enteredTitle)
         console.log(inputTitle.current.value)
         console.log(enteredIngredients)
-        if (enteredIngredients !== [] && inputTitle.current.value.trim().length < 3) {
+        if (enteredIngredients !== [] && inputTitle.current.value.trim().length > 3) {
             const newDesign = {
-                id: (Math.random() * 10),
+                id: (Math.floor(Math.random() * 10)),
                 name: inputTitle.current.value,//enteredTitle,
                 ingredients: enteredIngredients
             };
             props.onSaveDesign(newDesign);
             inputTitle.current.value = '';
             alert("submitted");
-        }
-        else {
+        } else {
             alert("error");
         }
     };
@@ -46,18 +45,29 @@ function DesignForm(props) {
         console.log(enteredIngredients)
     };
 
+    const ingredientTypes = () => {
+        let types = [];
+        props.data.map((item) => {
+            if (!types.includes(item.type)) {
+                types.push(item.type);
+            }
+        });
+        return types;
+    };
+
     return (
         <div className='designForm'>
             <form method="POST" onSubmit={submitHandler}>
                 <div className='groups'>
-                    {props.data.map((item, index) =>
-                        <IngredientGroup
+                    {ingredientTypes().map((type, index) => {
+                        return (<IngredientGroup
                             key={index}
-                            className={item.id}
-                            ingredients={item.ingredients}
+                            className={type}
+                            ingredients={props.data.filter(item => item.type === type)}
                             onSaveIngredients={saveIngredientsHandler}
                             onDeleteIngredients={deleteIngredientsHandler}
                         />)
+                    })
                     }
                 </div>
                 <div className='inputTitle'>
@@ -69,12 +79,12 @@ function DesignForm(props) {
                     <button type='button'>Create another one</button>
                 </div>
 
-    {/*<input type="hidden" sec:authorize="isFullyAuthenticated()" th:if="${_csrf}"
+                {/*<input type="hidden" sec:authorize="isFullyAuthenticated()" th:if="${_csrf}"
                        th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>*/
-    }
-</form>
-</div>
-)
+                }
+            </form>
+        </div>
+    )
 }
 
 export default DesignForm;

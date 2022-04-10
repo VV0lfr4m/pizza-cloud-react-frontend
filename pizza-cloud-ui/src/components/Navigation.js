@@ -1,10 +1,9 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {NavLink} from "react-router-dom";
 import AuthContext from "./state/AuthContext";
 import '../css/Navigation.css';
 
 function Navigation(props) {
-
     const ctx = useContext(AuthContext);
 
     return (
